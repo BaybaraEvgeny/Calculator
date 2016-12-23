@@ -309,3 +309,4 @@ void quotient(node_stack **head)
 	*head = res;
 	return;
 }
+
