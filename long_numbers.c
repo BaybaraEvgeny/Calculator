@@ -33,7 +33,7 @@ void number_print(node_stack *head)
 	if (head && head->tail)
 	{
 		node_number *tmp = head->tail;
-		if (head->sign)            //check sign number
+		if (head->sign)            
 		{
 			printf("%c", '-');
 		}
