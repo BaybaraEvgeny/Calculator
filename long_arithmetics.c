@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "long_numbers.h"
-#include "long_arithmetic.h"
+#include "long_arithmetics.h"
 #include "struct.h"
 
 int comparator_mod(node_stack *head)
@@ -14,11 +14,11 @@ int comparator_mod(node_stack *head)
 	}
 	if (head->length > head->next->length)
 	{
-		return 0; //if mod(a) > mod(b)
+		return 0; 
 	}
 	if (head->length < head->next->length)
 	{
-		return 1; //if mod(a) < mod(b)
+		return 1; 
 	}
 	node_number *a = head->tail;
 	node_number *b = head->next->tail;
@@ -35,12 +35,12 @@ int comparator_mod(node_stack *head)
 	{
 		return 1;
 	}
-	//if mod(a) = mod(b)
+	
 	return 2;
 }
 
 
-//addition modules of two numbers, sign res = sign prenult number
+
 
 void sum(node_stack **head)
 {
@@ -80,10 +80,10 @@ void sum(node_stack **head)
 
 void diff(node_stack **head)
 {
-	if (comparator_mod(*head) == 2) //if a=b then (a-b)=0
+	if (comparator_mod(*head) == 2) 
 	{
-		number_delete(head); //del a
-		number_delete(head); //del b
+		number_delete(head);
+		number_delete(head); 
 		node_stack *tmp = number_create();
 		digit_push_in_head(tmp, 0);
 		tmp->next = *head;
@@ -140,7 +140,7 @@ void diff(node_stack **head)
 		digit_delete_from_tail(res);
 	}
 	number_delete(head);
-	number_delete(head); //del min and max
+	number_delete(head); 
 	res->next = *head;
 	*head = res;
 }
@@ -154,7 +154,7 @@ void compos(node_stack **head)
 	}
 	node_stack *res = number_create();
 	res->sign = ((*head)->sign == (*head)->next->sign) ? 0 : 1;
-	if (!(*head)->tail->digit || !(*head)->next->tail->digit) //if (a=0) or (b=0) then a*b=0
+	if (!(*head)->tail->digit || !(*head)->next->tail->digit) 
 	{
 		digit_push_in_head(res, 0);
 		res->sign = 0;
@@ -164,7 +164,7 @@ void compos(node_stack **head)
 		*head = res;
 		return;
 	}
-	//if (a=1) or (b=1) then a*b=(a)or(b)
+	
 	if (((*head)->tail->digit == 1) && ((*head)->length == 1))
 	{
 		(*head)->next->sign = ((*head)->sign == (*head)->next->sign) ? 0 : 1;
@@ -182,7 +182,7 @@ void compos(node_stack **head)
 	long i = (*head)->length + (*head)->next->length;
 	while (i--)
 	{
-		digit_push_in_head(res, 0); // res = 0
+		digit_push_in_head(res, 0); 
 	}
 	char mod = 0;
 	char div = 0;
@@ -229,13 +229,13 @@ void quotient(node_stack **head)
 		printf("there aren't enough numbers for this operation|empty stack.\n");
 		return;
 	}
-	//if  (b=0) then a/b -- error
+	
 	if (!(*head)->tail->digit)
 	{
 		printf("impossible operation.\n");
 		return;
 	}
-	//if b=1 then a/b=a
+	
 	if (((*head)->tail->digit == 1) && ((*head)->length == 1))
 	{
 		(*head)->next->sign = ((*head)->sign == (*head)->next->sign) ? 0 : 1;
@@ -244,7 +244,7 @@ void quotient(node_stack **head)
 	}
 	node_stack *res = number_create();
 	res->sign = ((*head)->sign == (*head)->next->sign) ? 0 : 1;
-	// if (a=b) then a/b = +-1
+	
 	if (comparator_mod(*head) == 2)
 	{
 		number_delete(head);
@@ -254,7 +254,7 @@ void quotient(node_stack **head)
 		(*head) = res;
 		return;
 	}
-	// if (a<b) then a/b = 0 in Z
+	
 	if (!comparator_mod(*head))
 	{
 		number_delete(head);
@@ -264,7 +264,7 @@ void quotient(node_stack **head)
 		*head = res;
 		return;
 	}
-	//if a>b then a/b=res
+	
 	int quot = 0;
 	(*head)->sign = 0;
 	(*head)->next->sign = 0;
